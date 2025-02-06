@@ -76,8 +76,7 @@ pipeline {
                         mimeType: 'text/html',
                         from: "eshwar.bashabathini88@mail.com",
                         to: "sivakrishna@middlewaretalents.com",
-                        replyTo: "no-reply@middlewaretalents.com", // Optional: to set a reply-to address
-                        debug: true // Debug mode for troubleshooting email issues
+                        replyTo: "no-reply@middlewaretalents.com" // Optional: to set a reply-to address
                     )
                     input message: 'Do you approve the deployment?', ok: 'Deploy'
                 }
