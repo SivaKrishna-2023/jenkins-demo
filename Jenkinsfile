@@ -64,18 +64,20 @@ pipeline {
             steps {
                 script {
                     emailext (
-                        subject: " Approval Required: Deploy to Azure",
+                        subject: "Approval Required: Deploy to Azure - Build ${env.BUILD_NUMBER}",
                         body: """
-                        Hello Team,<br><br>
-                        The latest build is ready for deployment. Please approve or reject the deployment.<br>
-<strong>Build URL:</strong> <a href="${env.BUILD_URL}">${env.BUILD_URL}</a><br><br>
-                        Click the link above to approve or reject the deployment.<br><br>
-                        Best Regards,<br>
-                        Jenkins CI/CD
+                        <p>Hello Team,</p>
+                        <p>The latest build <b>${env.BUILD_NUMBER}</b> is ready for deployment. Please approve or reject the deployment.</p>
+                        <p><strong>Build URL:</strong> <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                        <p>Click the link above to approve or reject the deployment.</p>
+                        <p>Best Regards,</p>
+                        <p>Jenkins CI/CD</p>
                         """,
                         mimeType: 'text/html',
                         from: "eshwar.bashabathini88@mail.com",
                         to: "sivakrishna@middlewaretalents.com",
+                        replyTo: "no-reply@middlewaretalents.com", // Optional: to set a reply-to address
+                        debug: true // Debug mode for troubleshooting email issues
                     )
                     input message: 'Do you approve the deployment?', ok: 'Deploy'
                 }
