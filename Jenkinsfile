@@ -71,8 +71,8 @@ pipeline {
                              <p><a href="${env.BUILD_URL}input">🔗 Approve Here</a></p>
                              <p>Details: <a href="${env.BUILD_URL}">Jenkins Build URL</a></p>
                              """,
-                             to: 'approver@example.com',
-                             from: 'jenkins@example.com',
+                             to: 'sivakrishna@middlewaretalents.com',
+                             from: 'eshwar.bashabathini88@mail.com',
                              mimeType: 'text/html'
                 }
                 timeout(time: 30, unit: 'MINUTES') {  // Approval must be given within 30 minutes
