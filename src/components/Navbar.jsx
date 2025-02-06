@@ -21,7 +21,7 @@ export default function Navbar() {
     setIsMobileMenuOpen(false);
   };
 
-  const navItems = ["Home1", "Services", "About", "Contact"];
+  const navItems = ["Home2", "Services", "About", "Contact"];
 
   return (
     <nav
