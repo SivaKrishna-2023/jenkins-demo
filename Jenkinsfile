@@ -61,39 +61,23 @@ pipeline {
             }
         }
 
-        stage('Approval Required') {
-            steps {
-                script {
-                    emailext subject: "🔔 Approval Needed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                             body: """
-                             <p>🚀 Build <b>${env.BUILD_NUMBER}</b> for <b>${env.JOB_NAME}</b> is awaiting approval.</p>
-                             <p>Please review and approve the build:</p>
-                             <p><a href="${env.BUILD_URL}input">🔗 Approve Here</a></p>
-                             <p>Details: <a href="${env.BUILD_URL}">Jenkins Build URL</a></p>
-                             """,
-                             to: 'sivakrishna@middlewaretalents.com',
-                             from: 'eshwar.bashabathini88@mail.com',
-                             mimeType: 'text/html'
-                }
-                timeout(time: 30, unit: 'MINUTES') {  // Approval must be given within 30 minutes
-                    input message: "Do you approve the build?", ok: "Approve"
-                }
-            }
-        }
+        
 
 
         stage('Login to Azure') {
             steps {
                 script {
-                    withCredentials([
-                        string(credentialsId: 'AZURE_CLIENT_ID', variable: 'AZURE_CLIENT_ID'), 
-                        string(credentialsId: 'AZURE_CLIENT_SECRET', variable: 'AZURE_CLIENT_SECRET'), 
-                        string(credentialsId: 'AZURE_TENANT_ID', variable: 'AZURE_TENANT_ID')
-                    ]) {
-                        bat '''
-                        az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
-                        '''
-                    }
+    emailext subject: "🔔 Approval Needed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+             body: """
+             <p>🚀 Build <b>${env.BUILD_NUMBER}</b> for <b>${env.JOB_NAME}</b> is awaiting approval.</p>
+             <p>Please review and approve the build:</p>
+             <p><a href="${env.BUILD_URL}input">🔗 Approve Here</a></p>
+             <p>Details: <a href="${env.BUILD_URL}">Jenkins Build URL</a></p>
+             """,
+             to: 'sivakrishna@middlewaretalents.com',
+             from: 'eshwar.bashabathini88@mail.com',
+             mimeType: 'text/html',
+             debug: true  // Enables debugging
                 }
             }
         }
