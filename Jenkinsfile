@@ -60,23 +60,24 @@ pipeline {
             }
         }
 
-        stage('Approval Required') {
+        stage('Approval Email Notification') {
             steps {
                 script {
-                    emailext subject: "🔔 Approval Needed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                             body: """
-                             <p>🚀 Build <b>${env.BUILD_NUMBER}</b> for <b>${env.JOB_NAME}</b> is awaiting approval.</p>
-                             <p>Please review and approve the build:</p>
-                             <p><a href="${env.BUILD_URL}input">🔗 Approve Here</a></p>
-                             <p>Details: <a href="${env.BUILD_URL}">Jenkins Build URL</a></p>
-                             """,
-                             to: 'sivakrishna@middlewaretalents.com', // lowercase email address
-                             from: 'eshwar.bashabathini88@mail.com',
-                             mimeType: 'text/html',
-                             debug: true // Enable email sending debug
-                }
-                timeout(time: 30, unit: 'MINUTES') {  // Approval must be given within 30 minutes
-                    input message: "Do you approve the build?", ok: "Approve"
+                    emailext (
+                        subject: " Approval Required: Deploy to Azure",
+                        body: """
+                        Hello Team,<br><br>
+                        The latest build is ready for deployment. Please approve or reject the deployment.<br>
+<strong>Build URL:</strong> <a href="${env.BUILD_URL}">${env.BUILD_URL}</a><br><br>
+                        Click the link above to approve or reject the deployment.<br><br>
+                        Best Regards,<br>
+                        Jenkins CI/CD
+                        """,
+                        mimeType: 'text/html',
+                        from: "eshwar.bashabathini88@mail.com",
+                        to: "sivakrishna@middlewaretalents.com",
+                    )
+                    input message: 'Do you approve the deployment?', ok: 'Deploy'
                 }
             }
         }
