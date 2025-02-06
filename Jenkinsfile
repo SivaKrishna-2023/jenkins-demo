@@ -71,7 +71,7 @@ pipeline {
                              <p><a href="${env.BUILD_URL}input">🔗 Approve Here</a></p>
                              <p>Details: <a href="${env.BUILD_URL}">Jenkins Build URL</a></p>
                              """,
-                             to: 'sivakrishna@middlewaretalents.com',
+                             to: 'Sivakrishna@middlewaretalents.com',
                              from: 'eshwar.bashabathini88@mail.com',
                              mimeType: 'text/html'
                 }
